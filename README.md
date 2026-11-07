@@ -36,7 +36,7 @@ Fork it, set it up for a business near you, and charge for installation, hosting
 
 ## 🔥 How it works
 
-| | | |
+| Step | | How |
 |:--:|:--|:--|
 | **1** | **Pick a project** | Choose one from the list below that fits a business you know: a relative's shop, a friend's factory, your local gym. |
 | **2** | **Set it up in an hour** | Every project runs with `npm install && npm run demo`. Show the owner a working demo filled with sample data. |
@@ -45,10 +45,6 @@ Fork it, set it up for a business near you, and charge for installation, hosting
 <br>
 
 ## 🚀 Featured · Project 01
-
-<table>
-<tr>
-<td width="62%" valign="top">
 
 ### [KaamTrack](projects/01-kaamtrack) — Factory Task Timer
 
@@ -66,18 +62,15 @@ A manufacturer in Assam pays skilled workers ₹30–70k a month. The owner says
 **Sell to:** factories, workshops, fabrication units, furniture makers
 **Charge:** ₹15,000 setup + ₹1,500/month
 
-[**→ Open project**](projects/01-kaamtrack)
-
-</td>
-<td width="38%" valign="top" align="center">
-<img src="projects/01-kaamtrack/docs/worker-hi.png" alt="Worker's phone screen in Hindi with a live timer" width="260">
-</td>
-</tr>
-</table>
+<p align="center">
+<img src="projects/01-kaamtrack/docs/worker-hi.png" alt="Worker's phone screen in Hindi with a live timer" width="250">&nbsp;&nbsp;<img src="projects/01-kaamtrack/docs/worker-en.png" alt="Worker's phone screen in English" width="250">
+</p>
 
 <p align="center">
 <img src="projects/01-kaamtrack/docs/leaderboard.png" alt="KaamTrack monthly leaderboard" width="100%">
 </p>
+
+<p align="center"><a href="projects/01-kaamtrack"><b>→ Open Project 01: code, setup and demo</b></a></p>
 
 <br>
 
