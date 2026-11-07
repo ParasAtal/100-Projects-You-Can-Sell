@@ -52,11 +52,11 @@ const holder: Holder = (g.__kaamtrack ??= {});
 
 export async function db(): Promise<Client> {
   if (!holder.client) {
-    const url = process.env.DATABASE_URL || "file:data/kaamtrack.db";
+    const url = process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL || "file:data/kaamtrack.db";
     if (url.startsWith("file:")) {
       fs.mkdirSync(path.dirname(path.resolve(url.slice(5))), { recursive: true });
     }
-    holder.client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN });
+    holder.client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN });
     holder.ready = holder.client.batch(SCHEMA, "write");
   }
   await holder.ready;

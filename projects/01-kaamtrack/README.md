@@ -83,13 +83,27 @@ To try the worker screen on your own phone, both must be on the same Wi-Fi: run 
 
 ## Deploy for a factory
 
-Any server that runs Node and keeps files on disk:
+### Free: Vercel + Turso + Vercel Blob (no server to manage, about 15 minutes)
+
+1. **Fork this repo** on GitHub.
+2. On [vercel.com](https://vercel.com), sign in with GitHub → **Add New → Project** → import your fork.
+   Set **Root Directory** to `projects/01-kaamtrack` and click **Deploy**. The first deploy fails because nothing is connected yet. That's expected.
+3. In the project, open **Storage**:
+   - **Create → Turso** (Marketplace). It adds `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` for you.
+   - **Create → Blob**, choose **Private**. It adds `BLOB_READ_WRITE_TOKEN`.
+4. **Settings → Environment Variables**, add:
+   - `OWNER_PIN`: 6+ digits, the factory owner's login
+   - `SESSION_SECRET`: a long random string (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`)
+   - `APP_TIMEZONE`: `Asia/Kolkata`
+   - `MONTHLY_REWARD`: optional, e.g. `₹5,000 bonus for #1`
+5. **Deployments → Redeploy**. Open the URL, log in, add workers and send them their links.
+
+### Or any server that keeps files on disk
 
 - **A ₹300–500/month VPS** (Hostinger, DigitalOcean, Hetzner): `npm run build && npm start` behind Caddy for free HTTPS.
 - **Railway / Render** with a persistent volume mounted at `data/`.
-- **Vercel**: point `DATABASE_URL` at [Turso](https://turso.tech) and swap `lib/storage.ts` for cloud storage (Vercel's disk isn't permanent).
 
-Before going live: set a long `OWNER_PIN` and a random `SESSION_SECRET`. The app refuses to start in production without them.
+The app refuses to start in production without `OWNER_PIN` and `SESSION_SECRET`.
 
 ## Selling it
 

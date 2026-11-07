@@ -168,9 +168,9 @@ function TaskRow({ task: t, events, now }: { task: Task; events: TaskEvent[]; no
       <div className="row spread" style={{ marginTop: 8 }}>
         <div className="thumbs">
           {photos.map((e) => (
-            <a key={e.id} href={`/api/photo/${e.photo}`} target="_blank" title={`${e.type} ${timeOf(e.client_at, TZ)}`}>
+            <a key={e.id} href={`/api/photo/${e.id}`} target="_blank" title={`${e.type} ${timeOf(e.client_at, TZ)}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/api/photo/${e.photo}`} alt={`${e.type} photo`} loading="lazy" />
+              <img src={`/api/photo/${e.id}`} alt={`${e.type} photo`} loading="lazy" />
             </a>
           ))}
         </div>
