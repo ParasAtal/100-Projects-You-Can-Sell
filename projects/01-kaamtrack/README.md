@@ -87,16 +87,17 @@ To try the worker screen on your own phone, both must be on the same Wi-Fi: run 
 
 1. **Fork this repo** on GitHub.
 2. On [vercel.com](https://vercel.com), sign in with GitHub → **Add New → Project** → import your fork.
-   Set **Root Directory** to `projects/01-kaamtrack` and click **Deploy**. The first deploy fails because nothing is connected yet. That's expected.
+   Set **Root Directory** to `projects/01-kaamtrack` and click **Create Project**. Don't deploy yet.
+   (`vercel.json` runs the server in Mumbai, next to the database. Change `bom1` if you're elsewhere.)
 3. In the project, open **Storage**:
-   - **Create → Turso** (Marketplace). It adds `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` for you.
-   - **Create → Blob**, choose **Private**. It adds `BLOB_READ_WRITE_TOKEN`.
+   - **Create Storage → Turso** (free Starter plan, region Mumbai), then **Connect** it to the project. Any env prefix works; the app finds `*_TURSO_DATABASE_URL` itself.
+   - **Create Storage → Blob**: region Mumbai, access **Private**, and tick **"Add a read-write token env var"**.
 4. **Settings → Environment Variables**, add:
    - `OWNER_PIN`: 6+ digits, the factory owner's login
    - `SESSION_SECRET`: a long random string (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`)
    - `APP_TIMEZONE`: `Asia/Kolkata`
    - `MONTHLY_REWARD`: optional, e.g. `₹5,000 bonus for #1`
-5. **Deployments → Redeploy**. Open the URL, log in, add workers and send them their links.
+5. **Deploy** (or Deployments → Redeploy). Open the URL, log in, add workers and send them their links.
 
 ### Or any server that keeps files on disk
 

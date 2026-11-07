@@ -46,17 +46,34 @@ const SCHEMA = [
   `CREATE INDEX IF NOT EXISTS events_task ON events(task_id)`,
 ];
 
+/**
+ * DATABASE_URL (+ DATABASE_AUTH_TOKEN) wins. Otherwise use the variables Vercel's Turso
+ * integration creates, whatever prefix was chosen: <PREFIX>_TURSO_DATABASE_URL / _TURSO_AUTH_TOKEN.
+ */
+function dbConfig(): { url: string; authToken?: string } {
+  if (process.env.DATABASE_URL) {
+    return { url: process.env.DATABASE_URL, authToken: process.env.DATABASE_AUTH_TOKEN };
+  }
+  const key = Object.keys(process.env).find((k) => k.endsWith("TURSO_DATABASE_URL"));
+  if (key) {
+    const prefix = key.slice(0, -"TURSO_DATABASE_URL".length);
+    return { url: process.env[key]!, authToken: process.env[`${prefix}TURSO_AUTH_TOKEN`] };
+  }
+  if (process.env.VERCEL) throw new Error("No database configured: connect Turso in Vercel → Storage.");
+  return { url: "file:data/kaamtrack.db" };
+}
+
 type Holder = { client?: Client; ready?: Promise<unknown> };
 const g = globalThis as unknown as { __kaamtrack?: Holder };
 const holder: Holder = (g.__kaamtrack ??= {});
 
 export async function db(): Promise<Client> {
   if (!holder.client) {
-    const url = process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL || "file:data/kaamtrack.db";
+    const { url, authToken } = dbConfig();
     if (url.startsWith("file:")) {
       fs.mkdirSync(path.dirname(path.resolve(url.slice(5))), { recursive: true });
     }
-    holder.client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN });
+    holder.client = createClient({ url, authToken });
     holder.ready = holder.client.batch(SCHEMA, "write");
   }
   await holder.ready;
