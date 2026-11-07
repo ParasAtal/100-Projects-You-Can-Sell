@@ -1,0 +1,29 @@
+name: 💡 Request a project
+description: A real business problem you want built (and sold) next
+title: "[Request] "
+labels: ["project-request"]
+body:
+  - type: input
+    id: business
+    attributes:
+      label: Which business?
+      placeholder: e.g. Rice mill in Guwahati, dental clinic in Pune
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are they losing money or time on?
+      description: Tell the real story. Who does what today, and what goes wrong?
+    validations:
+      required: true
+  - type: input
+    id: pay
+    attributes:
+      label: Would they pay for a fix? Roughly how much?
+      placeholder: e.g. ₹10k setup + ₹1k/month
+  - type: dropdown
+    id: from
+    attributes:
+      label: How did you find this repo?
+      options: [Instagram, YouTube, GitHub, A friend, Other]
